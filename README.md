@@ -22,6 +22,8 @@
 
 Objective of the project is to build predictive models with supervised techniques to predict Rajasthan State Legislative Assembly Elections outcome.
 
+<br>
+
 ### Approach
 
 - Collect raw data from trusted sources - election websites on internet.
@@ -35,6 +37,8 @@ Objective of the project is to build predictive models with supervised technique
 - Analyze model performance on unseen dataset for Rajasthan Assembly Elections 2008.
 - Compare model performance and make conclusion.
 
+<br>
+
 ### Data Collection
 
 Data Collection for Rajasthan Assembly Elections – 2013
@@ -46,4 +50,14 @@ My Neta: http://www.myneta.info/
 
 <p align="center"><img width=60% src=https://user-images.githubusercontent.com/44467789/64017879-4d829c80-cb48-11e9-817b-ca94543abe23.png>
   
+In India, especially states like Rajasthan castes and party representative plays major role. Hence, highlighted variable are most important.
 
+The data was acquired from Election Commission of India website for Rajasthan 2013 State Legislative Assembly Elections. However, same data was acquired from My Neta website fro same election year, state Rajasthan.
+
+<br>
+
+### Data Preparation
+
+
+
+To check the Multinomial Logistic Regression model on unseen dataset we have also acquired data for Rajasthan 2008 State Legislative Assembly Elections from Election Commission of India website.
