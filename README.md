@@ -57,10 +57,12 @@ In India, especially states like Rajasthan castes and party representative plays
 
 The data was acquired from Election Commission of India website for Rajasthan 2013 State Legislative Assembly Elections. However, same data was acquired from My Neta website fro same election year, state Rajasthan.
 
+To check the Multinomial Logistic Regression model on unseen dataset we have also acquired data for Rajasthan 2008 State Legislative Assembly Elections from Election Commission of India website.
+
 <br>
 
 ### Data Preparation
 
 
 
-To check the Multinomial Logistic Regression model on unseen dataset we have also acquired data for Rajasthan 2008 State Legislative Assembly Elections from Election Commission of India website.
+
