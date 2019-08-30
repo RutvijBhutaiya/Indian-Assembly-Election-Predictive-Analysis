@@ -1,10 +1,12 @@
+[In progress.. ]
+
 # Indian Assembly Election Predictive Analysis
 
 <br>
 
 <p align="center"><img width=16% src=https://user-images.githubusercontent.com/44467789/64017385-1c559c80-cb47-11e9-8f6b-3c78179c8c6b.png>
 
-<p align="center"><img width=60% src=https://user-images.githubusercontent.com/44467789/64017384-1c559c80-cb47-11e9-9558-82a3d609bc2f.jpg>
+<p align="center"><img width=58% src=https://user-images.githubusercontent.com/44467789/64017384-1c559c80-cb47-11e9-9558-82a3d609bc2f.jpg>
 
 <br>
 
@@ -46,6 +48,7 @@ Data Collection for Rajasthan Assembly Elections – 2013
 For particular project data has been collected from various trusted sources from internet.
 
 Election Commission of India: https://www.eci.gov.in/
+
 My Neta: http://www.myneta.info/
 
 <p align="center"><img width=60% src=https://user-images.githubusercontent.com/44467789/64017879-4d829c80-cb48-11e9-817b-ca94543abe23.png>
