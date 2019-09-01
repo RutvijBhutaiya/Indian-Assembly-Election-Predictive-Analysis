@@ -17,8 +17,8 @@
 - [Data Preparation](#data-preparation)
 - [Setting Up R Studio and Data Variables](#setting-up-r-studio-and-data-variables)
 - [Exploratory Data Analysis](#exploratory-data-analysis)
--
-
+- [Building Regression Tree](#building-regression-tree)
+- 
 
 <br>
 
@@ -110,4 +110,109 @@ In the polls dataset, to predict VOTE_SHARE we are using CART – Regression tre
 <br>
 
 ### Exploratory Data Analysis
+
+It is very important to analyze significant variable take in dataset. Based on the data structure we can see that AC_TYPE and CAND_CATEGORY represent same level of categorical variables.
+
+```
+## CHANGE LEVELS NAMES IN AC_TYPE and CAND_CATEGORY
+
+levels(polls$AC_TYPE)
+
+## [1] "GEN" "SC"  "ST"
+
+levels(polls$AC_TYPE) = c('AC_GEN', 'AC_SC', 'AC_ST' )
+
+levels(polls$CAND_CATEGORY)
+
+## [1] "GEN" "SC"  "ST"
+
+levels(polls$CAND_CATEGORY) = c('CAND_GEN', 'CAND_SC', 'CAND_ST')
+```
+Based on summary of polls dataset we can see Male candidate are higher than female representatives. Bur, intresting case comes up when we analyze ITR_FILED candidated list. ITR_FILED variable ratio for Yes and No is almost similar. And hence, it says that it is not very important to file ITR and to get a ticket to represent respective parties for assembly elections in Rajasthan.
+
+And, as we can analyze predictive variable VOTE_SHARE, max vote share out of total valid votes is 0.38% and minimum is 0.00016%. However, this is obvious because in some constituency seat due to less voters party representative got less number of votes.
+
+As we mentioned earlier, in India, especially stares like Rajasthan castes and party nominative candidate plays important role in winning or losing the party seat.
+
+<p align="left"><img width=30% src= https://user-images.githubusercontent.com/44467789/64073547-3e712b00-ccbd-11e9-8c40-0fd9dd35d30e.png>
+  
+With the help of rpivotTable(polls) function, we can analyze that, candidate from SC and ST got ticket to represent their party where constituency type was General. However this directly means in there are high chance for a party to lose that particular seat. Interestingly national parties like BJP and INC know the caste strategy and hence these figures are very low, for CAND_SC and CAND_ST represent 1.5% and 2.1% for General constituencies.
+
+Now, as see the PAN and ITR_FILED variables, we got interesting analysis.
+
+<p align="center"><img width=73% src=https://user-images.githubusercontent.com/44467789/64073572-a9226680-ccbd-11e9-88c7-087686f61c1f.png>
+
+There are 44.8% of candidates who have not filed their income tax returns, and still they are contesting and representing their party. Further, we also analyzed from the chart that candidates who has not filed ITR are spread across all constituencies [presented by black point in chart].
+
+<p align="center"><img width=73% src=https://user-images.githubusercontent.com/44467789/64073588-d838d800-ccbd-11e9-875f-1da1ba090d4e.png>
+
+Similarly we also observed in case of PAN variable. There are around 25% candidates who have NO Pan card and still representing their party in assembly elections.
+Same case we can analyze that these candidates are spread across constituencies [presented by black point in chart].
+
+```
+rpivotTable(polls)
+```
+
+We have also analyzed interesting relationship between variables. We used rpivotTable(polls) in R Studio or represents facts and figures.
+
+##### Relationship between TOTAL_ VALID_VOTES and CRIMINAL_CASE
+
+First, we analyzed relationship between Total Valid Votes and Candidates having 1 or more criminal case. And we found that there are around 15% candidates who are representing constituency seat in their region, having 1 or more criminal cases.
+
+##### Relationship between Candidate Education and Total Valid Votes
+
+Most of the candidates representing their regional seat are above graduate level. However, around 26% candidates do not have proper education background
+
+##### Relationship between Candidates Sex and Candidate Party
+
+Here, we can see that party representing almost all seats out of total 200 constituencies seats, Female candidates BJP and INC represents 25 and 24 seat. Seats ratio for Male and Female is less, but for state election like Rajasthan it is good.
+
+##### Relationship between Candidate Sex, Candidate Party and Total Valid Votes
+
+This numbers represents, that Female candidate gave big cheers to BJP and INC, where acquiring votes for party around 5.5% and 4.0% for BJP and INC respectively.
+
+##### Relationship between Total Liabilities - Candidates wise count
+
+Data explains that most of the candidates are NIL on the liability count. Number tells that around 1,123 candidates having No liabilities, which is more that 50% candidates in dataset do not have any liabilities.
+
+Further, we analyses that there is 60% positive correlation between Total Asset and Total Liabilities for candidates count.
+Here, we left with two options; either normalizes TOTAL_LIB variable for data fit or considering good correlation with Total Asset and remove TOTAL_LIB variable. We decided to remove the variable from the dataset.
+
+```
+## DUE TO 1,123 CANDIDATED HAVING ZERO LIB + significant correlation TO TOTAL_ASSEET 
+
+cor(TOTAL_ASSET, TOTAL_LIB)
+```
+However, TOTAL_ASSET is represented in rupees and hence, we decided not to normalize for data fit.
+
+As we can see the below histogram for Candidates Age factor, the histogram is right skewed.
+And hence, we used BoxCox.Lambda test using library forecast to normalize the variable for data fit.
+
+<p align="center"><img width=73% src=https://user-images.githubusercontent.com/44467789/64073680-dfacb100-ccbe-11e9-87f2-ffbd96a1b2d0.png>
+ 
+To build the predictive model we split the data into 90 : 10 dataset for Train : Test.
+We have also removed the variable TOTAL_VALID_VOTES variable as VOTE_SHARE is representation of Total Valid Votes.
+
+```
+### ## %%%%%%%%%%%    SPLIT  DATASET INTO 90:10   %%%%%%%%%  ## ###
+
+set.seed(123)
+
+split = sample(2, nrow(polls), replace = TRUE, prob = c(0.9,0.1))
+
+train = polls[split == 1, ]
+test = polls[split == 2, ]
+
+
+## REMOVE TOTAL_VALID VOTES var AS IT REFLECTS var VOTE_SHARE
+
+train = train[, -11]
+test = test[ ,-11]
+```
+
+### Building Regression Tree
+
+
+  
+
 
