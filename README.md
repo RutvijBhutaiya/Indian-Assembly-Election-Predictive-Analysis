@@ -263,3 +263,10 @@ After creating data frame for actual and predicted VOTE_SHARE, we can see from t
 ### Building Multinomial Logistic Regression
 
 
+
+
+
+### Acknowledge 
+
+Great Lakes Institute - BACP Project
+
