@@ -18,6 +18,7 @@
 - [Setting Up R Studio and Data Variables](#setting-up-r-studio-and-data-variables)
 - [Exploratory Data Analysis](#exploratory-data-analysis)
 - [Building Regression Tree](#building-regression-tree)
+- [Building Multinomial Logistic Regression](#building-multinomial-logistic-regression)
 - 
 
 <br>
@@ -212,7 +213,53 @@ test = test[ ,-11]
 
 ### Building Regression Tree
 
+Based on train and test dataset, we’ll build regression tree on target variable VOTE_SHARE, with the help of rpart, rpart.plot, rattel and RcolourBrewer libraries.
+Here, we set rpart.control function with minsplit of 100 and minbucket of 10.
 
+```
+## Setting rpart.control function
+
+r.ctrl = rpart.control(minsplit = 100, minbucket = 10, cp = 0, xval = 10)
+
+model = rpart(formula = VOTE_SHARE~., data = train, method = 'anova', control = r.ctrl)
+```
+To build regression tree we used rpart() function, and we set method as ‘anova’.
+For classification tree, we uses ‘class’ method but here due to continuous variable VOTE_SHARE, we build regression tree with ‘anova’ method.
+
+Now, based on CP (Complex Parameter) table we’ll prune tree from min error rate. As we see at nsplit 6, we can check the least xerror rate of 0.1991
+
+Based on relative error we consider CP value as 0.0016, less the relative error higher the quality of model predictability.
+In regression tree we measure performance based on R-Squared, which is reflection of (1 – Relative Error rate).
+
+In pruned tree, at Node 1, Candidate Party is highly significant. Hence, we can say that in VOTE_SHARE variable, CAND_PARTY plays important role on vote bank.
+
+We acquired interesting facts from CAN_PARTY count and numbers of constituencies of Rajasthan Assembly Elections 2013.
+Here, total constituencies are 200, where BJP candidates represents 199 [from original dataset, study dataset consists 197 nominees] and INC candidates represents 200 [from original dataset, study dataset consists 197 nominees].
+
+However, national level parties like CPM and NCP represents 37 and 16 nominees respectively.
+
+This tells if BJP and INC party distribute tickets to their nominated candidates there are higher chances to acquire maximum votes and to win maximum seats, out of total constituencies. Where, CPM and NCP for example has only 18.5% [37/200] and 8% [16/200] probability chances to come up with maximum vote share. Because, out of 200 seats on 163 CPM has not nominated any candidate and hence probability of acquire votes winning that particular constituency seat becomes ‘Zero’.
+
+To check the performance of the model we considered R-squared with the help of rsq.rpart() function.
+
+```
+## Define R-square for the model
+
+par(mfrow = c(1,2))
+rsquart = rsq.rpart(model.prun)
+```
+
+As we can see in the below charts, decrease in relative error, increases R-square. And hence at 6th split we have r-squared value of tree 0.80. R-squared value of 0.80 represents, that 80% of change in VOTE_SHARE has been represented by pruned tree regression tree, where CAND_PARTY plays significant role.
+
+<p align="center"><img width=73% src=https://user-images.githubusercontent.com/44467789/64091227-d67a1d80-cd6c-11e9-9f67-0cc9f7c7a9ef.png>
   
+Now, based on unseen dataset we’ll predict the VOTE_SHARE based on pruned regression tree. We have used predict() function and ‘anova’ method to predict unseen dataset test.
+And, based on prediction we’ll also check the accuracy of model on unseen dataset in chart format.
+
+After creating data frame for actual and predicted VOTE_SHARE, we can see from the plot, that model works best on unseen dataset.
+
+<p align="center"><img width=73% src=https://user-images.githubusercontent.com/44467789/64091271-0a554300-cd6d-11e9-82ec-bb6458930375.png> 
+  
+### Building Multinomial Logistic Regression
 
 
