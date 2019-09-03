@@ -262,6 +262,84 @@ After creating data frame for actual and predicted VOTE_SHARE, we can see from t
   
 ### Building Multinomial Logistic Regression
 
+After studying VOTE_SHARE from state assembly election in Rajasthan 2013, we focuses on Multinomial Logistic Regression technique for targeted variables, POSITION.
+
+Here, higher the POSITION on particular constituency mean less votes and less POSITION value means high votes.
+
+We have used same dataset ‘polls’ to conduct study and build model. However, here we are using Multinomial Logistic Regression (MLR). Hence, we need to modify the dataset accordingly.
+
+For respective party, At POSITION 33 count value is only 1, which is worthless to consider.
+Because in elections, generally we consider top three positions. Sometimes we consider even more positions, because there might be a chance of coalition to form party in particular region.
+
+Under our study we are considering POSITION till 11 the level and all POSITIONS after 12 [including] are merged in ‘Others’ category.
+
+```
+## MODIFICATION ON VARIABLES ## 
+
+polls$POSITION[polls$POSITION %in% 
+  c(12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33)] = 'Others'
+
+polls = polls[, -c(1,2,4,15)]
+```
+
+As part of logistic regression, categorical variables need to convert into dummy variables to build Multinomial Logistic Regression. Hence, we converted only significant variables to dummy variables.
+
+```
+## CONVERT FACTORS INTO DUMMY VARIABLES ## 
+
+polls$CAND_M = ifelse(polls$CAND_SEX == 'M', 1,0)
+polls$CAND_F = ifelse(polls$CAND_SEX == 'F', 1,0)
+
+polls$AC_GEN  = ifelse(polls$AC_TYPE == 'AC_GEN', 1,0) 
+polls$AC_SC = ifelse(polls$AC_TYPE == 'AC_SC', 1,0)
+polls$AC_ST = ifelse(polls$AC_TYPE == 'AC_ST', 1,0)
+
+...
+```
+As we see dataset dimension, after conversion column increased to 50 and total observations comes to 2022.
+
+Now, out of 2022 observations, we decided to take random 90% of observations to train MLR model and 10% of observations to test model on unseen dataset. Hence, we split the dataset into train : test with ration of 90 : 10.
+
+#### Build Multinomial Logistic Regression Model
+
+To build MLR we used libraries called ‘nnet’ and multinom() function.
+
+As we can see in L1 variable, we have considered only high significant variables into the model building. To choose the high significant variables we used forward technique on all the variables from dataset.
+
+As we saw in regression tree, CAND_PARTY is the most significant variable in the analysis. Here, we choose almost all party which was significant to model performance. Including party we also added CAND_AGE and Gender factor in model building.
+
+After running multinom() function to build model from nnet library, we used predict() function to predict the results on unseen dataset.
+Now, to measure the performance of Multinomial Logistic Regression model we taje POSITION as factor and compared actual and predicted results with the help of confusionMatrix() function from library caret.
+
+```
+## Apply multinom function to dataset 
+
+L1 = as.factor(POSITION) ~ 
+  CAND_AGE + CAND_F + CAND_M +
+  IND + BJP + INC + BSP + NPEP + BA_S_D +
+  RJVP + IPGP + CPI + LJP + NCP + JDU + SHS + BHBP + MSDP + AKBAP + RLD
+  
+
+m1 = multinom(L1 , train , trace = FALSE)
+```
+
+As we see the accuracy level is 40% with very low p-value.
+
+Also, from the matrix, we can analyze that class 1, class2, and class Others are the most accurate classes. And that serves our purpose of prediction. Because, actually we focuses only on first three classes (positions) to know the election outcome.
+
+Where, for class 1 and class 2 sensitivity and specificity levels are 0.81 and 0.98 for class 1 and 0.85 and 0.97 for class 2.
+
+Here, 0.81 from class 1 and 0.85 from class 2 means True Positive Rate, which means total correct positive predicted for class 1 and class 2 divide by total number of positives.
+
+Similarly, 0.98 and 0.97 from class 1 and class 2 respectively, means correct negative predicted divided by total negatives. Here for class 1 specificity rate is higher because there are only 4 incorrect negatives predicted values with class 2, 3 and 5.
+
+#### Predict Rajasthan Assembly Elections 2008
+
+In the study we went one step further to check how model fits on 2008 elections dataset.
+
+However, we didn’t get dataset for Rajasthan Assembly Election 2017, so we pick 2008 elections dataset from Election Commission of India to check our model fit.
+
+To prepare the dataset from assembly elections 2008 we again did levels name change for AC_TYPE and CAND_CATEGORY variables and put POSITION factor more than 12 (including) as ‘Otheres’. We also converted factors into dummy variables shown
 
 
 
