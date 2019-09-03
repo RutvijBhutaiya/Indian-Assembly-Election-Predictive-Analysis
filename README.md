@@ -19,7 +19,7 @@
 - [Exploratory Data Analysis](#exploratory-data-analysis)
 - [Building Regression Tree](#building-regression-tree)
 - [Building Multinomial Logistic Regression](#building-multinomial-logistic-regression)
-- 
+- [Conclusion](#conclusion)
 
 <br>
 
@@ -260,6 +260,8 @@ After creating data frame for actual and predicted VOTE_SHARE, we can see from t
 
 <p align="center"><img width=73% src=https://user-images.githubusercontent.com/44467789/64091271-0a554300-cd6d-11e9-82ec-bb6458930375.png> 
   
+<br>
+
 ### Building Multinomial Logistic Regression
 
 After studying VOTE_SHARE from state assembly election in Rajasthan 2013, we focuses on Multinomial Logistic Regression technique for targeted variables, POSITION.
@@ -300,6 +302,7 @@ As we see dataset dimension, after conversion column increased to 50 and total o
 
 Now, out of 2022 observations, we decided to take random 90% of observations to train MLR model and 10% of observations to test model on unseen dataset. Hence, we split the dataset into train : test with ration of 90 : 10.
 
+<br>
 #### Build Multinomial Logistic Regression Model
 
 To build MLR we used libraries called ‘nnet’ and multinom() function.
@@ -333,15 +336,33 @@ Here, 0.81 from class 1 and 0.85 from class 2 means True Positive Rate, which me
 
 Similarly, 0.98 and 0.97 from class 1 and class 2 respectively, means correct negative predicted divided by total negatives. Here for class 1 specificity rate is higher because there are only 4 incorrect negatives predicted values with class 2, 3 and 5.
 
+<br>
 #### Predict Rajasthan Assembly Elections 2008
 
 In the study we went one step further to check how model fits on 2008 elections dataset.
 
 However, we didn’t get dataset for Rajasthan Assembly Election 2017, so we pick 2008 elections dataset from Election Commission of India to check our model fit.
 
-To prepare the dataset from assembly elections 2008 we again did levels name change for AC_TYPE and CAND_CATEGORY variables and put POSITION factor more than 12 (including) as ‘Otheres’. We also converted factors into dummy variables shown
+To prepare the dataset from assembly elections 2008 we again did levels name change for AC_TYPE and CAND_CATEGORY variables and put POSITION factor more than 12 (including) as ‘Otheres’. 
+
+To apply the Multinomial Logistic Regression model to predict POSITION on 2008 election outcome, we choose random 90% of dataset. And we split the dataset for train2008 : test 2008 with ratio of 10 : 90.
+
+Again we used predict() function to predict POSITION from assembly election 2008 polls. And we compare it with actual polls outcome on POSITION variable.
+
+Based on 10834 observations our model predicted POSITION in elections with 36.4% accuracy. However, based on our observation shorter the level counts in POSITION higher the accuracy. As pilot test [not included in report] we observed that merging more than 7 factors into ‘Others’ we got accuracy more than 60%. But, we decided to consider more factors at POSITION level.
+
+Our test2008 dataset also, predicted class 1 and class 2 with good amount of sensitivity and specificity.
+
+As we see the results from both the testing dataset, we observed good level of accuracy. However, elections outcomes are more about human perceptions and behavior. Hence, we consider 40% - 50% accuracy as good model fit.
+
+<p align="center"><img width=73% src=https://user-images.githubusercontent.com/44467789/64188180-8647ac00-ce8f-11e9-841d-3ccf5f6751e5.pn>
+  
+<br>
+
+### Conclusion
 
 
+<br>
 
 
 ### Acknowledge 
