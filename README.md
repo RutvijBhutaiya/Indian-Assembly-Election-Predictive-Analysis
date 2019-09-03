@@ -303,6 +303,7 @@ As we see dataset dimension, after conversion column increased to 50 and total o
 Now, out of 2022 observations, we decided to take random 90% of observations to train MLR model and 10% of observations to test model on unseen dataset. Hence, we split the dataset into train : test with ration of 90 : 10.
 
 <br>
+
 #### Build Multinomial Logistic Regression Model
 
 To build MLR we used libraries called ‘nnet’ and multinom() function.
@@ -337,6 +338,7 @@ Here, 0.81 from class 1 and 0.85 from class 2 means True Positive Rate, which me
 Similarly, 0.98 and 0.97 from class 1 and class 2 respectively, means correct negative predicted divided by total negatives. Here for class 1 specificity rate is higher because there are only 4 incorrect negatives predicted values with class 2, 3 and 5.
 
 <br>
+
 #### Predict Rajasthan Assembly Elections 2008
 
 In the study we went one step further to check how model fits on 2008 elections dataset.
@@ -355,7 +357,7 @@ Our test2008 dataset also, predicted class 1 and class 2 with good amount of sen
 
 As we see the results from both the testing dataset, we observed good level of accuracy. However, elections outcomes are more about human perceptions and behavior. Hence, we consider 40% - 50% accuracy as good model fit.
 
-<p align="center"><img width=73% src=https://user-images.githubusercontent.com/44467789/64188180-8647ac00-ce8f-11e9-841d-3ccf5f6751e5.pn>
+<p align="center"><img width=36% src=https://user-images.githubusercontent.com/44467789/64188180-8647ac00-ce8f-11e9-841d-3ccf5f6751e5.png>
   
 <br>
 
