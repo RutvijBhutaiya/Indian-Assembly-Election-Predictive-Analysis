@@ -1,5 +1,3 @@
-[In progress.. ]
-
 # Indian Assembly Election Predictive Analysis
 
 <br>
