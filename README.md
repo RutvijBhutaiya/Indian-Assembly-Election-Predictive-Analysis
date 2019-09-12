@@ -369,7 +369,12 @@ However, we analyzed various factors like party nominated candidates’ assets o
 
 <br>
 
+### License 
+
+This Project/Repository is Licensed under MIT license.
+
+<br>
+
 ### Acknowledge 
 
 Great Lakes Institute - BACP Project
-
