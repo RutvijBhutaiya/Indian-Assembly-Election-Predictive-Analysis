@@ -371,7 +371,7 @@ However, we analyzed various factors like party nominated candidates’ assets o
 
 ### License 
 
-This Project/Repository is Licensed under MIT license.
+This Project/Repository is Licensed under [MIT license](https://github.com/RutvijBhutaiya/Indian-Assembly-Election-Predictive-Analysis/blob/master/LICENSE).
 
 <br>
 
