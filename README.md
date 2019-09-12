@@ -361,9 +361,13 @@ As we see the results from both the testing dataset, we observed good level of a
 
 ### Conclusion
 
+Elections are more about human perception and behavior. After studying Rajasthan state assembly elections, with CART (Regression Tree) for continuous variable VOTE_SHARE and Multinomial Logistic Regression for factor variable POSITION we came to conclusion that CAND_PARTY plays important role in elections outcomes.
+
+In Regression tree R-squared came to 80% and on other side Multinomial Logistic Regression model gave accuracy of 40%. This indicates that polls data is fit for Regression Tree. Because based on VOTE_SHARE we can assign more accurate POSITION in constituencies. But, based on less accuracy with MLR model we can’t predict clear votes in constituency for particular party. Hence, we recommend performing Regression tree on election dataset for Rajasthan assembly.
+
+However, we analyzed various factors like party nominated candidates’ assets or PAN or ITR Filed or Criminal cases etc. we found that in region like Rajasthan – caste plays significant role. Hence, we also observed party’s strategies on AC_TYPE and CAND_CATEGORY statistics. However, due to mismatch in constituencies’ number and counts we are not able to clearly justify incumbency effect from 2008 and 2013 state assembly elections results.
 
 <br>
-
 
 ### Acknowledge 
 
